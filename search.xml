@@ -4,17 +4,27 @@
   
     
     <entry>
-      <title>DP0</title>
-      <link href="/2023/11/16/DP0/"/>
-      <url>/2023/11/16/DP0/</url>
+      <title>动态规划问题规约与解题套路</title>
+      <link href="/2023/11/17/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E8%A7%84%E7%BA%A6%E4%B8%8E%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/"/>
+      <url>/2023/11/17/%E7%AE%97%E6%B3%95/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E9%97%AE%E9%A2%98%E8%A7%84%E7%BA%A6%E4%B8%8E%E8%A7%A3%E9%A2%98%E5%A5%97%E8%B7%AF/</url>
       
-        <content type="html"><![CDATA[<h2 id="问题规约"><a href="#问题规约" class="headerlink" title="问题规约"></a>问题规约</h2><h2 id="求解套路"><a href="#求解套路" class="headerlink" title="求解套路"></a>求解套路</h2>]]></content>
+        <content type="html"><![CDATA[<h2 id="问题规约"><a href="#问题规约" class="headerlink" title="问题规约"></a>问题规约</h2><h3 id="从一个DAG问题说起"><a href="#从一个DAG问题说起" class="headerlink" title="从一个DAG问题说起"></a>从一个DAG问题说起</h3><h3 id="DAG问题求解"><a href="#DAG问题求解" class="headerlink" title="DAG问题求解"></a>DAG问题求解</h3><h3 id="动态规划的规约"><a href="#动态规划的规约" class="headerlink" title="动态规划的规约"></a>动态规划的规约</h3><h2 id="解题套路"><a href="#解题套路" class="headerlink" title="解题套路"></a>解题套路</h2>]]></content>
       
+      
+      <categories>
+          
+          <category> 算法 </category>
+          
+          <category> 动态规划 </category>
+          
+      </categories>
       
       
         <tags>
             
             <tag> 算法 </tag>
+            
+            <tag> 动态规划 </tag>
             
         </tags>
       
