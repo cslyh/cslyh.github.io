@@ -1,6 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>欢迎来到我的博客！！</title>
+    <url>/posts/4268595940.html</url>
+    <content><![CDATA[<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
     <title>tmux设置</title>
     <url>/posts/2385916753.html</url>
     <content><![CDATA[<h1 id="tmux设置"><a href="#tmux设置" class="headerlink" title="tmux设置"></a>tmux设置</h1><p>tmux是一个终端复用器，可以同时开启多个终端，这里修改一下设置，将响应按键ctrl+b修改为ctrl+a，同时开启鼠标功能。</p>
@@ -18,21 +35,43 @@
       </tags>
   </entry>
   <entry>
-    <title>欢迎来到我的博客！！</title>
-    <url>/posts/4268595940.html</url>
-    <content><![CDATA[<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>动态规划算法范式与解题套路</title>
+    <url>/posts/339018614.html</url>
+    <content><![CDATA[<h1 id="算法范式"><a href="#算法范式" class="headerlink" title="算法范式"></a>算法范式</h1><h2 id="从DAG问题说起"><a href="#从DAG问题说起" class="headerlink" title="从DAG问题说起"></a>从DAG问题说起</h2><p>我们来看一个在有向无环图(directed acyclic graphs,DAG)中，寻找从特定源节点出发到其他节点的最短路径问题，如下图所示，尽管解决它已经有很好的算法，但在这里我们从另一个角度看它。</p>
+<p>首先将该图线性化，也就是尽可能在一条线上排列，以便所有的边都从左向右延伸，下图为1个例子。</p>
+<img src="https://cdn.jsdelivr.net/gh/cslyh/picgostore@main/img/image-20231117174118751.png" alt="image-20231117174118751" style="zoom: 80%;" />
 
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<h2 id="DAG问题的求解"><a href="#DAG问题的求解" class="headerlink" title="DAG问题的求解"></a>DAG问题的求解</h2><p>那DAG和动态规划有什么关系呢？先别急，看看如何解决DAG问题。</p>
+<p>对于DAG问题，除了Dijkstra算法和Floyd算法外，我们思考一下还能怎么解决。</p>
+<p>比如对于s-d的最短路径，我们可以逆向求，先考虑到它的前驱b或者c的最短路径，也就是：<br>$$<br>dist(s, d) &#x3D; min({dist(s, b) + 1, dist(s, c) + 3})<br>$$<br>一般的算法伪代码如下，V为图的点集，E为边集，复杂度为O(|E|)：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Algorithm 2: ShortestPath(V, E)</span><br><span class="line">1: initialize dist(s, v) = ∞ for s ̸= v and dist(s, s) = 0;</span><br><span class="line">2: for v ∈ V \s in linearized order do</span><br><span class="line">3: dist(s, v) = min(u,v)∈E&#123;dist(s, u) + e(u, v)&#125;</span><br><span class="line">4: end</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>这样，最终我们只需要从起点s出发，从左到右依次计算，并且前一个计算的问题是后一个问题的子问题，有助于计算后一个更大的问题(不同于分治算法子问题独立)，</p>
+<h2 id="动态规划的归约"><a href="#动态规划的归约" class="headerlink" title="动态规划的归约"></a>动态规划的归约</h2><p>理解了上述DAG问题的求解后，我们再来看它和动态规划的关系。</p>
+<p>实际上动态规划都可以归约到这样一个DAG问题，节点对应动态规划的状态&#x2F;子问题，边对应状态的转移关系，只有先解决前一个状态&#x2F;子问题，才能到达后一个状态&#x2F;子问题，求解动态规划问题的关键在于如何找到这样一个<strong>DAG</strong>结构，只要找到这样一个DAG结构，求解就变得很容易，这是我们对于动态规划应该有的理解。</p>
+<h1 id="求解套路"><a href="#求解套路" class="headerlink" title="求解套路"></a>求解套路</h1><p>得出了动态规划的算法范式后，来点实用的，如何解动态规划题呢？</p>
+<p>类比DAG，我们知道关键，在于先寻找状态，或者说最优子结构，这里也可以叫集合，以及各状态之间的转移关系，确实每个题目都不一样，但依然有一个大体上的求解套路，学习自AcWing。</p>
+<p>我们可以从集合角度看动态规划，思路图如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/cslyh/picgostore@main/img/image-20230904231847468.png" alt="image-20230904231847468"></p>
+<p>其中，状态表示是一个数代表<strong>一个集合</strong>，并且有<strong>一个具体属性</strong>，优化了搜索</p>
+<p>状态计算依据一般是寻找<strong>最后一个不同点</strong></p>
+<p>算法步骤：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">先得出状态表示(一个表达式)，一维/二维/...，这个需要一定经验</span><br><span class="line">集合：状态表示哪个集合</span><br><span class="line">属性：状态表示这个集合具体什么值，最小/最大/和</span><br><span class="line"></span><br><span class="line">然后进行状态计算</span><br><span class="line">集合划分:根据最后一步xxx划分,各个子集分别对应哪个状态(不一定一一对应，一个状态可能包含或者小于某个子集，视问题而定)</span><br><span class="line">状态转移:转移方程是这些状态取最小/最大/求和</span><br><span class="line"></span><br><span class="line">最后按流程求解</span><br><span class="line">初始化:需要设定什么初始值</span><br><span class="line">转移过程:如何编写代码对应状态转移</span><br><span class="line">答案:最终答案是哪个状态或者怎么得到</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+
+
+
 ]]></content>
+      <categories>
+        <category>算法</category>
+        <category>动态规划</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>动态规划</tag>
+      </tags>
   </entry>
   <entry>
     <title>动态规划问题分类整理</title>
@@ -347,6 +386,73 @@
       </tags>
   </entry>
   <entry>
+    <title>C++高精度</title>
+    <url>/posts/2178989225.html</url>
+    <content><![CDATA[<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>对于一些高精度的大整数，一般的数据类型无法存储，需要额外用数组存储，同时额外定义它们的四则运算方式。</p>
+<blockquote>
+<p>Java有内置的大整数类型，而python默认为大整数，不需要自己写高精度</p>
+</blockquote>
+<h2 id="高精度加法"><a href="#高精度加法" class="headerlink" title="高精度加法"></a>高精度加法</h2><blockquote>
+<p><a href="https://www.acwing.com/problem/content/793/">791. 高精度加法 - AcWing题库</a></p>
+</blockquote>
+<p><strong>思路分析</strong></p>
+<p>一般是两个高精度大整数相加</p>
+<img src="https://cdn.jsdelivr.net/gh/cslyh/picgostore@main/img/image-20231121130301595.png" alt="image-20231121130301595" style="zoom:50%;" />
+
+
+
+<p><strong>代码实现</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">add</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;A,vector&lt;<span class="type">int</span>&gt; &amp;B)</span></span>&#123;<span class="comment">//给定高精度A和B，返回相加结果</span></span><br><span class="line">    <span class="keyword">if</span>(A.<span class="built_in">size</span>()&lt;B.<span class="built_in">size</span>())<span class="keyword">return</span> <span class="built_in">add</span>(B,A);</span><br><span class="line">    <span class="type">int</span> carry=<span class="number">0</span>;<span class="comment">//进位，初始为0</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; C;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;A.<span class="built_in">size</span>();i++)&#123;<span class="comment">//加的时候从低字节低位相加</span></span><br><span class="line">        carry+=A[i];</span><br><span class="line">        <span class="keyword">if</span>(i&lt;B.<span class="built_in">size</span>())carry+=B[i];</span><br><span class="line">        C.<span class="built_in">push_back</span>(carry%<span class="number">10</span>);</span><br><span class="line">        carry/=<span class="number">10</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(carry)C.<span class="built_in">push_back</span>(carry);<span class="comment">//最后清尾</span></span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string a,b;</span><br><span class="line">    cin&gt;&gt;a&gt;&gt;b;<span class="comment">//以字符串形式读入</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;A,B,C;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=a.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)A.<span class="built_in">push_back</span>(a[i]-<span class="string">&#x27;0&#x27;</span>);<span class="comment">//小端序，低位在低字节，便于高位增长</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=b.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)B.<span class="built_in">push_back</span>(b[i]-<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    C=<span class="built_in">add</span>(A,B);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=C.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)cout&lt;&lt;C[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="高精度减法"><a href="#高精度减法" class="headerlink" title="高精度减法"></a>高精度减法</h2><blockquote>
+<p><a href="https://www.acwing.com/problem/content/794/">792. 高精度减法 - AcWing题库</a></p>
+</blockquote>
+<p><strong>思路分析</strong></p>
+<p>一般是两个高精度大整数相减</p>
+<img src="https://cdn.jsdelivr.net/gh/cslyh/picgostore@main/img/image-20231121125918536.png" alt="image-20231121125918536" style="zoom:50%;" />
+
+<p><strong>代码实现</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">sub</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;A,vector&lt;<span class="type">int</span>&gt; &amp;B)</span></span>&#123;<span class="comment">//给定高精度A和B,满足A&gt;B,返回相减结果</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; C;</span><br><span class="line">    <span class="type">int</span> carry=<span class="number">0</span>;<span class="comment">//低位向当前位的借位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;A.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        carry=A[i]-carry;</span><br><span class="line">        <span class="keyword">if</span>(i&lt;B.<span class="built_in">size</span>())carry-=B[i];</span><br><span class="line">        C.<span class="built_in">push_back</span>((carry+<span class="number">10</span>)%<span class="number">10</span>);<span class="comment">//可能需要向高位借位</span></span><br><span class="line">        <span class="keyword">if</span>(carry&gt;=<span class="number">0</span>)carry=<span class="number">0</span>;<span class="comment">//判断下一位的借位</span></span><br><span class="line">        <span class="keyword">else</span> carry=<span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">while</span>(C.<span class="built_in">size</span>()&gt;<span class="number">1</span>&amp;&amp;C.<span class="built_in">back</span>()==<span class="number">0</span>)C.<span class="built_in">pop_back</span>();<span class="comment">//去掉前导0</span></span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string a,b;</span><br><span class="line">    cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;A,B,C;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=a.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)A.<span class="built_in">push_back</span>(a[i]-<span class="string">&#x27;0&#x27;</span>);<span class="comment">//转换成整数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=b.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)B.<span class="built_in">push_back</span>(b[i]-<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    <span class="keyword">if</span>(a.<span class="built_in">size</span>()&lt;b.<span class="built_in">size</span>()||(a.<span class="built_in">size</span>()==b.<span class="built_in">size</span>()&amp;&amp;a&lt;b))&#123;</span><br><span class="line">        cout&lt;&lt;<span class="string">&quot;-&quot;</span>;<span class="comment">//A&lt;B时答案是负值</span></span><br><span class="line">        C=<span class="built_in">sub</span>(B,A);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> C=<span class="built_in">sub</span>(A,B);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=C.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)cout&lt;&lt;C[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="高精度乘法"><a href="#高精度乘法" class="headerlink" title="高精度乘法"></a>高精度乘法</h2><blockquote>
+<p><a href="https://www.acwing.com/problem/content/795/">793. 高精度乘法 - AcWing题库</a></p>
+</blockquote>
+<p>一般是一个高精度乘以一个一般精度</p>
+<img src="C:\Users\HBenF\AppData\Roaming\Typora\typora-user-images\image-20231121130115792.png" alt="image-20231121130115792" style="zoom:50%;" />
+
+
+
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">mul</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;A,<span class="type">int</span> b)</span></span>&#123;<span class="comment">//给定高精度正整数和一般精度b，返回相乘结果</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; C;</span><br><span class="line">    <span class="type">int</span> carry=<span class="number">0</span>;<span class="comment">//低位向当前位的进位</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=<span class="number">0</span>;i&lt;A.<span class="built_in">size</span>();i++)&#123;</span><br><span class="line">        carry+=A[i]*b;</span><br><span class="line">        C.<span class="built_in">push_back</span>(carry%<span class="number">10</span>);</span><br><span class="line">        carry/=<span class="number">10</span>;<span class="comment">//更新进位</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(carry)C.<span class="built_in">push_back</span>(carry);<span class="comment">//扫尾</span></span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string a;</span><br><span class="line">    <span class="type">int</span> b;<span class="comment">//b一般是正常精度的数</span></span><br><span class="line">    cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    <span class="keyword">if</span>(b==<span class="number">0</span>)&#123;<span class="comment">//0提前返回</span></span><br><span class="line">        cout&lt;&lt;<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;A,C;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=a.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)A.<span class="built_in">push_back</span>(a[i]-<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    C=<span class="built_in">mul</span>(A,b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=C.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)cout&lt;&lt;C[i];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="高精度除法"><a href="#高精度除法" class="headerlink" title="高精度除法"></a>高精度除法</h2><blockquote>
+<p><a href="https://www.acwing.com/problem/content/796/">794. 高精度除法 - AcWing题库</a></p>
+</blockquote>
+<p><strong>思路分析</strong></p>
+<p>一般是一个高精度除以一个一般精度<img src="https://cdn.jsdelivr.net/gh/cslyh/picgostore@main/img/image-20231121125453631.png" alt="image-20231121125453631" style="zoom:50%;" /></p>
+<p><strong>代码实现</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function">vector&lt;<span class="type">int</span>&gt; <span class="title">div</span><span class="params">(vector&lt;<span class="type">int</span>&gt; &amp;A,<span class="type">int</span> b)</span></span>&#123;<span class="comment">//给定高精度A和一般精度b,返回相除结果(商和余数)</span></span><br><span class="line">    vector&lt;<span class="type">int</span>&gt; C;</span><br><span class="line">    <span class="type">int</span> carry=<span class="number">0</span>;<span class="comment">//商前一位除法留下的余数</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=A.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)&#123;<span class="comment">//除法需要从高位开始算</span></span><br><span class="line">        carry=carry*<span class="number">10</span>+A[i];</span><br><span class="line">        C.<span class="built_in">push_back</span>(carry/b);</span><br><span class="line">        carry%=b;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">reverse</span>(C.<span class="built_in">begin</span>(),C.<span class="built_in">end</span>());<span class="comment">//逆序，因为计算是先存储高位</span></span><br><span class="line">    <span class="keyword">while</span>(C.<span class="built_in">size</span>()&gt;<span class="number">1</span>&amp;&amp;C.<span class="built_in">back</span>()==<span class="number">0</span>)C.<span class="built_in">pop_back</span>();<span class="comment">//去除前导0</span></span><br><span class="line">    C.<span class="built_in">push_back</span>(carry);<span class="comment">//压入余数</span></span><br><span class="line">    <span class="keyword">return</span> C;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    string a;</span><br><span class="line">    <span class="type">int</span> b;</span><br><span class="line">    cin&gt;&gt;a&gt;&gt;b;</span><br><span class="line">    vector&lt;<span class="type">int</span>&gt;A,C;</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=a.<span class="built_in">size</span>()<span class="number">-1</span>;i&gt;=<span class="number">0</span>;i--)A.<span class="built_in">push_back</span>(a[i]-<span class="string">&#x27;0&#x27;</span>);</span><br><span class="line">    C=<span class="built_in">div</span>(A,b);</span><br><span class="line">    <span class="keyword">for</span>(<span class="type">int</span> i=C.<span class="built_in">size</span>()<span class="number">-2</span>;i&gt;=<span class="number">0</span>;i--)cout&lt;&lt;C[i];</span><br><span class="line">    cout&lt;&lt;endl&lt;&lt;C[C.<span class="built_in">size</span>()<span class="number">-1</span>];</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+]]></content>
+      <categories>
+        <category>算法</category>
+        <category>基础算法</category>
+        <category>高精度</category>
+      </categories>
+      <tags>
+        <tag>算法</tag>
+        <tag>基础算法</tag>
+        <tag>高精度</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>贪心问题</title>
     <url>/posts/2581734894.html</url>
     <content><![CDATA[<h1 id="贪心分析"><a href="#贪心分析" class="headerlink" title="贪心分析"></a>贪心分析</h1><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">贪心策略一般是直觉</span><br><span class="line"></span><br><span class="line">贪心证明有两种</span><br><span class="line">一种是数学归纳法，对贪心算法步骤或者输入规模归纳，归纳过程中证明最优性</span><br><span class="line">另一种是替换，设法将最优解替换成算法解，并且替换过程中保持最优性</span><br></pre></td></tr></table></figure>
@@ -437,45 +543,6 @@
       <tags>
         <tag>算法</tag>
         <tag>贪心</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>动态规划算法范式与解题套路</title>
-    <url>/posts/339018614.html</url>
-    <content><![CDATA[<h1 id="算法范式"><a href="#算法范式" class="headerlink" title="算法范式"></a>算法范式</h1><h2 id="从DAG问题说起"><a href="#从DAG问题说起" class="headerlink" title="从DAG问题说起"></a>从DAG问题说起</h2><p>我们来看一个在有向无环图(directed acyclic graphs,DAG)中，寻找从特定源节点出发到其他节点的最短路径问题，如下图所示，尽管解决它已经有很好的算法，但在这里我们从另一个角度看它。</p>
-<p>首先将该图线性化，也就是尽可能在一条线上排列，以便所有的边都从左向右延伸，下图为1个例子。</p>
-<img src="https://cdn.jsdelivr.net/gh/cslyh/picgostore@main/img/image-20231117174118751.png" alt="image-20231117174118751" style="zoom: 80%;" />
-
-<h2 id="DAG问题的求解"><a href="#DAG问题的求解" class="headerlink" title="DAG问题的求解"></a>DAG问题的求解</h2><p>那DAG和动态规划有什么关系呢？先别急，看看如何解决DAG问题。</p>
-<p>对于DAG问题，除了Dijkstra算法和Floyd算法外，我们思考一下还能怎么解决。</p>
-<p>比如对于s-d的最短路径，我们可以逆向求，先考虑到它的前驱b或者c的最短路径，也就是：<br>$$<br>dist(s, d) &#x3D; min({dist(s, b) + 1, dist(s, c) + 3})<br>$$<br>一般的算法伪代码如下，V为图的点集，E为边集，复杂度为O(|E|)：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Algorithm 2: ShortestPath(V, E)</span><br><span class="line">1: initialize dist(s, v) = ∞ for s ̸= v and dist(s, s) = 0;</span><br><span class="line">2: for v ∈ V \s in linearized order do</span><br><span class="line">3: dist(s, v) = min(u,v)∈E&#123;dist(s, u) + e(u, v)&#125;</span><br><span class="line">4: end</span><br></pre></td></tr></table></figure>
-
-<p>这样，最终我们只需要从起点s出发，从左到右依次计算，并且前一个计算的问题是后一个问题的子问题，有助于计算后一个更大的问题(不同于分治算法子问题独立)，</p>
-<h2 id="动态规划的归约"><a href="#动态规划的归约" class="headerlink" title="动态规划的归约"></a>动态规划的归约</h2><p>理解了上述DAG问题的求解后，我们再来看它和动态规划的关系。</p>
-<p>实际上动态规划都可以归约到这样一个DAG问题，节点对应动态规划的状态&#x2F;子问题，边对应状态的转移关系，只有先解决前一个状态&#x2F;子问题，才能到达后一个状态&#x2F;子问题，求解动态规划问题的关键在于如何找到这样一个<strong>DAG</strong>结构，只要找到这样一个DAG结构，求解就变得很容易，这是我们对于动态规划应该有的理解。</p>
-<h1 id="求解套路"><a href="#求解套路" class="headerlink" title="求解套路"></a>求解套路</h1><p>得出了动态规划的算法范式后，来点实用的，如何解动态规划题呢？</p>
-<p>类比DAG，我们知道关键，在于先寻找状态，或者说最优子结构，这里也可以叫集合，以及各状态之间的转移关系，确实每个题目都不一样，但依然有一个大体上的求解套路，学习自AcWing。</p>
-<p>我们可以从集合角度看动态规划，思路图如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/cslyh/picgostore@main/img/image-20230904231847468.png" alt="image-20230904231847468"></p>
-<p>其中，状态表示是一个数代表<strong>一个集合</strong>，并且有<strong>一个具体属性</strong>，优化了搜索</p>
-<p>状态计算依据一般是寻找<strong>最后一个不同点</strong></p>
-<p>算法步骤：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">先得出状态表示(一个表达式)，一维/二维/...，这个需要一定经验</span><br><span class="line">集合：状态表示哪个集合</span><br><span class="line">属性：状态表示这个集合具体什么值，最小/最大/和</span><br><span class="line"></span><br><span class="line">然后进行状态计算</span><br><span class="line">集合划分:根据最后一步xxx划分,各个子集分别对应哪个状态(不一定一一对应，一个状态可能包含或者小于某个子集，视问题而定)</span><br><span class="line">状态转移:转移方程是这些状态取最小/最大/求和</span><br><span class="line"></span><br><span class="line">最后按流程求解</span><br><span class="line">初始化:需要设定什么初始值</span><br><span class="line">转移过程:如何编写代码对应状态转移</span><br><span class="line">答案:最终答案是哪个状态或者怎么得到</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-]]></content>
-      <categories>
-        <category>算法</category>
-        <category>动态规划</category>
-      </categories>
-      <tags>
-        <tag>算法</tag>
-        <tag>动态规划</tag>
       </tags>
   </entry>
 </search>
